@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mesa de RPG — dados e iniciativa</title>
+  <meta name="description" content="Rolador de dados com notação de RPG e controle de iniciativa e pontos de vida, direto no navegador.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎲</text></svg>">
+</head>
+<body>
+  <header class="topo">
+    <h1>Mesa de RPG</h1>
+    <p>Role dados e acompanhe o combate sem papel nem planilha.</p>
+  </header>
+
+  <main class="paineis">
+    <section class="painel" aria-labelledby="titulo-dados">
+      <h2 id="titulo-dados">Dados</h2>
+
+      <form id="form-rolagem" class="linha-rolagem" autocomplete="off">
+        <label class="visualmente-oculto" for="expressao">Expressão de dados</label>
+        <input id="expressao" name="expressao" value="1d20+5" spellcheck="false" aria-describedby="ajuda-expressao">
+        <button type="submit" class="botao-principal">Rolar</button>
+      </form>
+      <p id="ajuda-expressao" class="ajuda">
+        Exemplos: <code>2d6+3</code>, <code>2d20kh1</code> (vantagem), <code>2d20kl1</code> (desvantagem), <code>4d6kh3</code>, <code>d%</code>.
+      </p>
+      <p id="estatisticas" class="ajuda" aria-live="polite"></p>
+
+      <div class="atalhos" role="group" aria-label="Atalhos">
+        <button type="button" data-rolar="1d4">d4</button>
+        <button type="button" data-rolar="1d6">d6</button>
+        <button type="button" data-rolar="1d8">d8</button>
+        <button type="button" data-rolar="1d10">d10</button>
+        <button type="button" data-rolar="1d12">d12</button>
+        <button type="button" data-rolar="1d20">d20</button>
+        <button type="button" data-rolar="1d100">d100</button>
+      </div>
+
+      <div id="resultado" class="resultado" aria-live="polite">
+        <p class="resultado-vazio">Seu resultado aparece aqui.</p>
+      </div>
+
+      <div class="historico-topo">
+        <h3>Histórico</h3>
+        <button type="button" id="limpar-historico" class="botao-texto">Limpar</button>
+      </div>
+      <ol id="historico" class="historico"></ol>
+    </section>
+
+    <section class="painel" aria-labelledby="titulo-iniciativa">
+      <h2 id="titulo-iniciativa">Iniciativa</h2>
+
+      <form id="form-combatente" class="form-combatente" autocomplete="off">
+        <label>Nome <input name="nome" required maxlength="40" placeholder="Goblin"></label>
+        <label>Iniciativa <input name="iniciativa" type="number" required step="1" placeholder="12"></label>
+        <label>PV <input name="pv" type="number" required min="1" step="1" placeholder="7"></label>
+        <button type="submit" class="botao-principal">Adicionar</button>
+      </form>
+      <p id="erro-combatente" class="erro" role="alert"></p>
+
+      <div class="rodada">
+        <span id="rodada">Rodada 1</span>
+        <div>
+          <button type="button" id="proximo-turno" class="botao-principal">Próximo turno</button>
+          <button type="button" id="reiniciar" class="botao-texto">Reiniciar</button>
+        </div>
+      </div>
+
+      <ol id="combatentes" class="combatentes"></ol>
+      <p id="sem-combatentes" class="resultado-vazio">Adicione os personagens e monstros do combate.</p>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    Feito com HTML, CSS e JavaScript puro, sem bibliotecas · <a href="https://github.com/Borniotti/rpg-mesa">código no GitHub</a>
+  </footer>
+
+  <template id="modelo-combatente">
+    <li class="combatente">
+      <span class="combatente-iniciativa"></span>
+      <div class="combatente-info">
+        <strong class="combatente-nome"></strong>
+        <div class="barra-pv" role="progressbar" aria-valuemin="0"><span></span></div>
+        <small class="combatente-pv"></small>
+      </div>
+      <form class="combatente-acoes">
+        <input type="number" min="1" step="1" placeholder="0" aria-label="Valor">
+        <button type="submit" data-acao="dano" title="Causar dano">−</button>
+        <button type="submit" data-acao="cura" title="Curar">+</button>
+        <button type="button" data-acao="remover" class="botao-texto" title="Remover">✕</button>
+      </form>
+    </li>
+  </template>
+
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>
