@@ -1,5 +1,5 @@
 // Liga a interface às funções de dados.js e iniciativa.js.
-import { rolar, estatisticas, ErroDeRolagem } from './dados.js';
+import { ErroDeRolagem, estatisticas, rolar } from './dados.js';
 import * as iniciativa from './iniciativa.js';
 
 const $ = (seletor) => document.querySelector(seletor);
@@ -31,9 +31,7 @@ function descreverTermos(rolagem) {
     .map((termo, i) => {
       const sinal = termo.sinal < 0 ? '−' : i === 0 ? '' : '+';
       if (termo.tipo === 'fixo') return `${sinal} ${termo.valor}`;
-      const dados = termo.resultados
-        .map((v, j) => (termo.mantidos[j] ? `${v}` : `<s>${v}</s>`))
-        .join(', ');
+      const dados = termo.resultados.map((v, j) => (termo.mantidos[j] ? `${v}` : `<s>${v}</s>`)).join(', ');
       return `${sinal} [${dados}]`;
     })
     .join(' ');
@@ -74,8 +72,10 @@ function fazerRolagem(expressao) {
   try {
     const rolagem = rolar(expressao);
     mostrarResultado(rolagem);
-    historico = [{ expressao: rolagem.expressao, total: rolagem.total, critico: rolagem.critico }, ...historico]
-      .slice(0, LIMITE_HISTORICO);
+    historico = [{ expressao: rolagem.expressao, total: rolagem.total, critico: rolagem.critico }, ...historico].slice(
+      0,
+      LIMITE_HISTORICO,
+    );
     salvar('rpg-mesa:historico', historico);
     mostrarHistorico();
   } catch (erro) {
@@ -91,13 +91,13 @@ $('#form-rolagem').addEventListener('submit', (evento) => {
 
 $('#expressao').addEventListener('input', (evento) => mostrarEstatisticas(evento.target.value));
 
-document.querySelectorAll('[data-rolar]').forEach((botao) =>
+for (const botao of document.querySelectorAll('[data-rolar]')) {
   botao.addEventListener('click', () => {
     $('#expressao').value = botao.dataset.rolar;
     mostrarEstatisticas(botao.dataset.rolar);
     fazerRolagem(botao.dataset.rolar);
-  }),
-);
+  });
+}
 
 $('#limpar-historico').addEventListener('click', () => {
   historico = [];

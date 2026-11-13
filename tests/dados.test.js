@@ -1,6 +1,6 @@
-import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { analisar, escolherMantidos, estatisticas, rolar, ErroDeRolagem } from '../src/dados.js';
+import { test } from 'node:test';
+import { analisar, ErroDeRolagem, escolherMantidos, estatisticas, rolar } from '../src/dados.js';
 
 // Gera números "aleatórios" previsíveis: cada valor vira a face pedida.
 function dadosViciados(faces, ...valores) {

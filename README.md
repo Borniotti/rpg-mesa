@@ -18,12 +18,12 @@ Rolador de dados e controle de iniciativa para quem joga RPG de mesa. Funciona d
 
 ## Como foi feito
 
-| Parte | Arquivo | O que tem de interessante |
-|---|---|---|
-| Interpretador de dados | [`src/dados.js`](src/dados.js) | Lê o texto digitado, valida e explica o erro em português claro. Recebe o sorteio como parâmetro, o que permite testar com "dados viciados". |
-| Regras do combate | [`src/iniciativa.js`](src/iniciativa.js) | Funções puras: recebem o estado e devolvem um novo, sem alterar o anterior. Isso evita bugs e facilita salvar. |
-| Interface | [`src/app.js`](src/app.js), [`index.html`](index.html), [`style.css`](style.css) | HTML, CSS e JavaScript puro, sem bibliotecas nem etapa de build. |
-| Testes | [`tests/`](tests) | 16 testes automáticos com o executor de testes do próprio Node, rodando no GitHub a cada mudança. |
+| Parte                  | Arquivo                                                                          | O que tem de interessante                                                                                                                    |
+| ---------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| Interpretador de dados | [`src/dados.js`](src/dados.js)                                                   | Lê o texto digitado, valida e explica o erro em português claro. Recebe o sorteio como parâmetro, o que permite testar com "dados viciados". |
+| Regras do combate      | [`src/iniciativa.js`](src/iniciativa.js)                                         | Funções puras: recebem o estado e devolvem um novo, sem alterar o anterior. Isso evita bugs e facilita salvar.                               |
+| Interface              | [`src/app.js`](src/app.js), [`index.html`](index.html), [`style.css`](style.css) | HTML, CSS e JavaScript puro, sem bibliotecas nem etapa de build.                                                                             |
+| Testes                 | [`tests/`](tests)                                                                | 16 testes automáticos com o executor de testes do próprio Node, rodando no GitHub a cada mudança.                                            |
 
 Um caso que os testes pegaram durante o desenvolvimento: quem entrava no combate com iniciativa alta durante a montagem da mesa não recebia a primeira vez. A regra de "não roubar a vez de quem está agindo" agora só vale depois que o combate começa.
 
