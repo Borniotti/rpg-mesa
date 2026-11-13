@@ -6,9 +6,7 @@ export function estadoInicial() {
 }
 
 export function ordenar(combatentes) {
-  return [...combatentes].sort(
-    (a, b) => b.iniciativa - a.iniciativa || a.nome.localeCompare(b.nome, 'pt-BR'),
-  );
+  return [...combatentes].sort((a, b) => b.iniciativa - a.iniciativa || a.nome.localeCompare(b.nome, 'pt-BR'));
 }
 
 export function adicionar(estado, { nome, iniciativa, pv }) {

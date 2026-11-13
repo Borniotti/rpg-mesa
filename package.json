@@ -1,11 +1,16 @@
-{
+﻿{
   "name": "rpg-mesa",
   "version": "1.0.0",
   "description": "Rolador de dados e controle de iniciativa para mesas de RPG, direto no navegador.",
   "type": "module",
   "private": true,
   "scripts": {
-    "test": "node --test \"tests/**/*.test.js\""
+    "test": "node --test \"tests/**/*.test.js\"",
+    "check": "biome check .",
+    "format": "biome check --write ."
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@biomejs/biome": "2.6.7"
+  }
 }

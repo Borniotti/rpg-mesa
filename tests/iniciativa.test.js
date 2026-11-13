@@ -1,6 +1,6 @@
-import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { estadoInicial, adicionar, remover, proximoTurno, alterarPv, reiniciar } from '../src/iniciativa.js';
+import { test } from 'node:test';
+import { adicionar, alterarPv, estadoInicial, proximoTurno, reiniciar, remover } from '../src/iniciativa.js';
 
 function mesa() {
   let e = estadoInicial();
@@ -11,7 +11,10 @@ function mesa() {
 }
 
 test('ordena por iniciativa e desempata pelo nome', () => {
-  assert.deepEqual(mesa().combatentes.map((c) => c.nome), ['Ayla', 'Benício', 'Goblin']);
+  assert.deepEqual(
+    mesa().combatentes.map((c) => c.nome),
+    ['Ayla', 'Benício', 'Goblin'],
+  );
 });
 
 test('passa os turnos e conta as rodadas', () => {
